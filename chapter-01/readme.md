@@ -1,4 +1,4 @@
-vim: set filetype=scheme:
+# vim: set filetype=scheme:
 
 # Chapter 01 Exercises
 
