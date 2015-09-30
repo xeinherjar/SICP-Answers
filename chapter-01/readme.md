@@ -33,7 +33,7 @@ Translate the following expression into prefix form
 ```
 
 ### 1.3
-Define a procedure that takes three numbers as arguments and returns the 
+Define a procedure that takes three numbers as arguments and returns the
 sum of the squares of the two larger numbers
 
 ```
@@ -52,8 +52,8 @@ sum of the squares of the two larger numbers
 ```
 
 ### 1.4
-Observe that our model of evaluation allows for combinations whose operators 
-are compound expressions. Use this observation to describe the behavior of the 
+Observe that our model of evaluation allows for combinations whose operators
+are compound expressions. Use this observation to describe the behavior of the
 following procedure
 
 ```
@@ -102,4 +102,48 @@ its parameters as needed.  Since `x = 0` the interpreter doesn't need to
 evaluate `(p)`.
 
 ### 1.6
+Alyssa P. Hacker doesn't see why if needs to be provided as a special form.
+"Why can't I just define it as an ordinary procedure in terms of cond?" she
+asks. Alyssa's friend Eva Lu Ator claims this can indeed be done, and she
+defines a new version of if:
 
+```
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+          (else else-clause)))
+```
+
+Eva demonstrates the program for Alyssa:
+
+```
+(new-if (= 2 3) 0 5)
+5
+
+(new-if (= 1 1) 0 5)
+0
+```
+
+Delighted, Alyssa uses new-if to rewrite the square-root program:
+```
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+            guess
+                      (sqrt-iter (improve guess x)
+                                           x)))
+```
+What happens when Alyssa attempts to use this to compute square roots? Explain.
+
+Answer:
+
+`new-if` will work just fine with something like
+
+`(new-if (= 1 1) 0 5)`
+
+ Since `5` is already a value, there is no need to reduce it to a value. But if
+ you have a recursive function and you use `if` as the guard to return, well ...
+
+ The default evaluation strategy for `cond` uses Applicative Order Evaluation,
+ what makes `if` special is that it used Normal Order Evaluation and as
+ demonstrated above can short circuit. Since `if` is used as the guard to break
+ from a recursive function you must have an evaluation strategy that can break
+ early, otherwise you will be in a infinite loop or possibly blow the stack.
