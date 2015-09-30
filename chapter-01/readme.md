@@ -1,5 +1,3 @@
-/* vim: set filetype=scheme: */
-
 # Chapter 01 Exercises
 
 ### 1.1
@@ -35,7 +33,8 @@ Translate the following expression into prefix form
 ```
 
 ### 1.3
-Define a procedure that takes three numbers as arguments and returns the sum of the squares of the two larger numbers
+Define a procedure that takes three numbers as arguments and returns the 
+sum of the squares of the two larger numbers
 
 ```
 (define (square x)
@@ -53,7 +52,9 @@ Define a procedure that takes three numbers as arguments and returns the sum of 
 ```
 
 ### 1.4
-Observe that our model of evaluation allows for combinations whose operators are compound expressions. Use this observation to describe the behavior of the following procedure
+Observe that our model of evaluation allows for combinations whose operators 
+are compound expressions. Use this observation to describe the behavior of the 
+following procedure
 
 ```
 (define (a-plus-abs-b a b)
@@ -89,6 +90,8 @@ for the special form if is the same whether the interpreter is using normal or
     result determines whether to evaluate the consequent or the alternative
     expression.)
 
+Answer:
+
 Applicative Order Evaluation will loop forever because it will try to evaluate
 all of its operators and operands and reduce them to their values.
 Because `(p)` is defined as `(p)` it will attempt to reduce forever but will
@@ -96,4 +99,7 @@ never reach its 'value'.
 
 Normal Order Evaluation however will return `0` because it only evaluates
 its parameters as needed.  Since `x = 0` the interpreter doesn't need to
-evaluate '<alternative>'.
+evaluate `(p)`.
+
+### 1.6
+
