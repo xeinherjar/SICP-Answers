@@ -240,3 +240,51 @@ Large
 
 I'm not sure the above is correct, but it looks like this change works
 better for smaller numbers than larger numbers.
+
+### 1.8
+Newton's method for cube roots is based on the fact that if y is an
+approximation to the cube root of x, then a better approximation is given by
+the value
+
+(x/y*y) + (2 * y)
+-----------------
+        3
+
+Use this formula to implement a cube-root procedure analogous to the
+square-root procedure.
+
+```
+(define (cube x)
+  (* x x x))
+
+(define (average x y)
+  (/ (+ (* 2 y)
+        (/ x
+           (* y y)))
+   3))
+
+(define (improve guess x)
+  (average x guess))
+
+(define (good-enough? old-guess new-guess)
+  (<= (abs (- old-guess new-guess)) 
+      (* old-guess 0.00001)))
+
+(define (cube-iter old-guess new-guess x)
+  (if (good-enough? old-guess new-guess)
+      new-guess
+      (cube-iter new-guess (improve new-guess x)
+                 x)))
+
+(define (cube-root x)
+  (cube-iter 0.0 1.0 x))
+```
+
+Results
+```
+(cube (cube-root 27))
+27.00000000000264
+
+(cube (cube-root 0.001))
+0.0010000000000000013
+```
