@@ -238,5 +238,5 @@ Large
 9223372036854776.0
 ```
 
-I'm not I wrote the correct answer above, but it looks like this change works
+I'm not sure the above is correct, but it looks like this change works
 better for smaller numbers than larger numbers.
