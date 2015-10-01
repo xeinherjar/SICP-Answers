@@ -193,7 +193,7 @@ Small numbers is kind of obvious.
 9.00054933317044
 ```
 
-Large numbers may fail because the lose of precision is magnified.
+Large numbers may fail because the loose of precision is magnified.
 ```
 (square (sqrt 9223372036854775))
 9223372036854776.0
