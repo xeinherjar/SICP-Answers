@@ -147,3 +147,96 @@ Answer:
  demonstrated above can short circuit. Since `if` is used as the guard to break
  from a recursive function you must have an evaluation strategy that can break
  early, otherwise you will be in a infinite loop or possibly blow the stack.
+
+###  Exercise 1.7
+The `good-enough?` test used in computing square roots will not be very
+effective for finding the square roots of very small numbers. Also, in real
+computers, arithmetic operations are almost always performed with limited
+precision. This makes our test inadequate for very large numbers. Explain these
+statements, with examples showing how the test fails for small and large
+numbers. An alternative strategy for implementing good-enough? is to watch how
+guess changes from one iteration to the next and to stop when the change is a
+very small fraction of the guess. Design a square-root procedure that uses this
+kind of end test. Does this work better for small and large numbers?
+
+```
+(define (square x)
+  (* x x))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+```
+
+Answers:
+
+Small numbers is kind of obvious.
+```
+(square (sqrt .001))
+0.0017011851721075596
+
+(square (sqrt 9))
+9.00054933317044
+```
+
+Large numbers may fail because the lose of precision is magnified.
+```
+(square (sqrt 9223372036854775))
+9223372036854776.0
+```
+
+```
+(define (square x)
+  (* x x))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? old-guess new-guess)
+  (<= (abs (- old-guess new-guess))
+      (* new-guess 0.00001)))
+
+(define (sqrt-iter old-guess new-guess x)
+  (if (good-enough? old-guess new-guess)
+      new-guess
+      (sqrt-iter new-guess (improve new-guess x)
+                 x)))
+
+(define (sqrt x)
+  (sqrt-iter 0.0 1.0 x))
+```
+
+Small
+```
+(square (sqrt 0.001))
+0.001000000000000034
+
+(square (sqrt 9))
+9.0
+```
+
+Large
+```
+(square (sqrt 9223372036854775))
+9223372036854776.0
+```
+
+I'm not I wrote the correct answer above, but it looks like this change works
+better for smaller numbers than larger numbers.
