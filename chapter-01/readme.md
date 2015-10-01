@@ -90,7 +90,7 @@ for the special form if is the same whether the interpreter is using normal or
     result determines whether to evaluate the consequent or the alternative
     expression.)
 
-Answer:
+**Answer:**
 
 Applicative Order Evaluation will loop forever because it will try to evaluate
 all of its operators and operands and reduce them to their values.
@@ -133,7 +133,7 @@ Delighted, Alyssa uses new-if to rewrite the square-root program:
 ```
 What happens when Alyssa attempts to use this to compute square roots? Explain.
 
-Answer:
+**Answer:**
 
 `new-if` will work just fine with something like
 
@@ -182,7 +182,7 @@ kind of end test. Does this work better for small and large numbers?
   (sqrt-iter 1.0 x))
 ```
 
-Answers:
+**Answer:**
 
 Small numbers is kind of obvious.
 ```
@@ -246,9 +246,7 @@ Newton's method for cube roots is based on the fact that if y is an
 approximation to the cube root of x, then a better approximation is given by
 the value
 
-(x/y*y) + (2 * y)
------------------
-        3
+((x/y*y) + (2 * y)) / 3
 
 Use this formula to implement a cube-root procedure analogous to the
 square-root procedure.
