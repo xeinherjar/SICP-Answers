@@ -385,5 +385,9 @@ computes 5n<sup>2</sup>.
 **Answer**
 
 f => 2n
+
 g => 2<sup>n</sup>
-h => 2<sup>n</sup><sup>n</sup>
+
+h => 2<sup>n</sup>^<sup>n</sup>
+
+I don't think you can superscript a superscript in HTML.
