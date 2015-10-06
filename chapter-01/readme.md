@@ -391,3 +391,54 @@ g => 2<sup>n</sup>
 h => 2<sup>n</sup>^<sup>n</sup>
 
 I don't think you can superscript a superscript in HTML.
+
+
+### 1.11
+A function f is defined by the rule that f(n) = n if n<3 
+and f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3) if n> 3. 
+Write a procedure that computes f by means of a recursive process. 
+Write a procedure that computes f by means of an iterative process.
+
+
+**Recursive**
+```
+(define (f n)
+  (if (< n 3)
+      n
+      (+ (f (- n 1))
+         (* 2 (f (- n 2)))
+         (* 3 (f (- n 3))))))
+
+(f 2)
+;; /=> 2
+(f 5)
+;; /=> 25
+(f 7)
+;; /=> 142
+```
+
+**Iterative**
+```
+(define (f n)
+  (f-iter 0 1 2 n))
+
+(define (f-iter a b c n)
+  (if (= n 0)
+      a
+      (f-iter b c (+ c (* 2 b) (* 3 a)) (- n 1))))
+```
+
+
+### 1.12
+The following pattern of numbers is called Pascal's triangle.
+
+```
+    1
+   1 1
+  1 2 1
+ 1 3 3 1
+1 4 6 4 1
+```
+The numbers at the edge of the triangle are all 1, and each number inside the 
+triangle is the sum of the two numbers above it.  Write a procedure that 
+computes elements of Pascal's triangle by means of a recursive process.
